@@ -10,8 +10,8 @@ nspass = f.readline().rstrip()
 f.close()
 
 
-channels = "#mta,#ggc"
-nick = "wikibot"
+channels = "#mta.spanish,#ggc"
+nick = "mwikibot"
 server = "irc.gtanet.com"
 port = 6667
 nspass = nspass
