@@ -10,11 +10,14 @@ nspass = f.readline().rstrip()
 f.close()
 
 
-channel = "#mta.scripting"
+channels = "#mta,#ggc"
 nick = "wikibot"
 server = "irc.gtanet.com"
 port = 6667
 nspass = nspass
+
+#Split the channels
+#joinC = channels.split(",")
 
 definitionData = {
     "Clientside event" : { 'color': 4, 'name' : 'Client Event' },
@@ -85,16 +88,18 @@ puns = {
 }
 
 class WikiBot(irc.bot.SingleServerIRCBot):
-    def __init__(self, channel, nickname, server, port=6667):
+    def __init__(self, channels, nickname, server, port=6667):
         irc.bot.SingleServerIRCBot.__init__(self, [(server, port)], nickname, nickname)
-        self.channel = channel
+        self.channel = channels
 
     def on_nicknameinuse(self, c, e):
         c.nick(c.get_nickname() + "_")
 
     def on_welcome(self, c, e):
-        c.join(self.channel)
-        c.privmsg("nickserv","identify "+nspass)
+		joinC = self.channel.split(",")
+		for ch in joinC:
+			c.join(ch)
+		c.privmsg("nickserv","identify "+nspass)
 
     def on_privmsg(self, c, e):
         self.do_command(e, e.arguments[0].split(), e.source.nick)
@@ -188,7 +193,7 @@ def wiki(c,args,target):
 
 def main():
     import sys
-    bot = WikiBot(channel, nick, server, port)
+    bot = WikiBot(channels, nick, server, port)
     bot.start()
     
 def cleanString(str):
