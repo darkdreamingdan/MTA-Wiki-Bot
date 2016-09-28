@@ -10,14 +10,11 @@ nspass = f.readline().rstrip()
 f.close()
 
 
-channels = "#mta.spanish,#ggc"
-nick = "mwikibot"
+channels = "#mta.scripting,#mta.dev"
+nick = "wikibot"
 server = "irc.gtanet.com"
 port = 6667
 nspass = nspass
-
-#Split the channels
-#joinC = channels.split(",")
 
 definitionData = {
     "Clientside event" : { 'color': 4, 'name' : 'Client Event' },
